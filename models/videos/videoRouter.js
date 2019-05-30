@@ -84,9 +84,12 @@ router.post("/create", jwtAuth, (req, res, next) => {
         console.log(req.body);
            Videos.create({
               person : user._id,
-              title: req.body.title,
-              description: req.body.description,
-              videoId: req.body.videoId
+              snippet: {
+                  title: req.body.title,
+                  description: req.body.description,
+                  thumbnails: req.body.thumbnails  
+                 },
+              id: this._id
             })
           .then(video => {
             
@@ -118,7 +121,7 @@ router.put("/:id", jwtAuth, (req, res) => {
     }
 
     const toUpdate = {};
-    const updateableFields = ['person', 'title','description', 'videoId'];
+    const updateableFields = ['person', 'snippet: {title,description',thumbnails}, 'id'];
   
     updateableFields.forEach(field => {
       if (field in req.body) {

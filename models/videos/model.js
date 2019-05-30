@@ -10,9 +10,14 @@ mongoose.Promise = global.Promise;
 
 const videoSchema = mongoose.Schema({
   person : {type: mongoose.Schema.ObjectId, ref: 'User'},
-  title: {type: String},
-  description: {type: String},        
-  videoId: {type: String}
+  
+   id: {type: String}
+   snippet: {
+       title: {type: String},
+       descripton: {type: String}
+       thumbnails: {type: Sring}
+    }
+
 }); 
 
    
@@ -27,11 +32,13 @@ videoSchema.virtual('personName').get(function(){
 
 videoSchema.methods.serialize = function() {
   return {
-    id: this._id,
     person: this.person,
-    title: this.title,
-    description: this.description,
-    videoId: this.videoId
+    id: this.id,
+    snippet: {
+       title: this.title,
+       description: this.description,
+       thumbnails: this.thumbnails
+      }
   };
 };
 
