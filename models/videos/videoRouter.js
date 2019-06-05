@@ -58,10 +58,10 @@ router.get("/", (req, res) => {
       User.find({username:filters.person})
       .then(user => {
         filters.person = user._id;
-        Sports
+        Videos
         .find(filters)
         console.log(filter)
-        .then(Sports => res.json (
+        .then(Videos => res.json (
            Sports.map(sport => sport.serialize())
         ))
         .catch(err => {
@@ -85,11 +85,11 @@ router.post("/create", jwtAuth, (req, res, next) => {
            Videos.create({
               person : user._id,
               snippet: {
-                  title: req.body.title,
-                  description: req.body.description,
-                  thumbnails: req.body.thumbnails  
+                  title: req.body.snippet.title,
+                  description: req.body.snippet.description,
+                  thumbnails: req.body.snippet.thumbnails  
                  },
-              id: this._id
+              vid: this._id
             })
           .then(video => {
             
@@ -121,8 +121,8 @@ router.put("/:id", jwtAuth, (req, res) => {
     }
 
     const toUpdate = {};
-    const updateableFields = ['person', 'snippet: {title,description',thumbnails}, 'id'];
-  
+    const updateableFields = ['person', 'snippet.title', 'snippet.description', 'snippet.thumbnails', 'vid']
+	
     updateableFields.forEach(field => {
       if (field in req.body) {
         toUpdate[field] = req.body[field];
