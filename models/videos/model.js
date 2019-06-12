@@ -8,29 +8,40 @@ mongoose.Promise = global.Promise;
 
 const videoSchema = mongoose.Schema({
   person : {type: mongoose.Schema.ObjectId, ref: 'User'}, 
-   vid: {
-    videoId: {type: String}
-  },
+/*
+  id: {
+    videoId: String
+  }, */
   snippet: {
-    title: {type: String},
-    description: {type: String},
-    thumbnails: {type: String}
-  }
+    publishedAt: Date,
+    channelId: String,
+    title: String,
+    description: String,
+    thumbnails: {
+        default: String      
+     }
+    }
 }); 
 
-videoSchema.virtual('personName').get(function(){
+/*videoSchema.virtual('personName').get(function(){
 	return `${this.person.firstName} ${this.person.lastName}`.trim();
-}); 
+});  */
 
 videoSchema.methods.serialize = function() {
   return {
     person: this.person,
-    vid: this.id.videoId,
+    id: {
+      videoId: this.id.videoId
+    },
     snippet: {
+      publishedAt: this.snippet.publishedAt,
+      channelId: this.snippet.channelId,
       title: this.snippet.title,
       description: this.snippet.description,
-      thumbnails: this.snippet.thumbnails
-  }
+      thumbnails: {
+        default: this.snippet.thumbnails.default
+      }
+    }
   };
 };
 
