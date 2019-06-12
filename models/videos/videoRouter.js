@@ -91,7 +91,7 @@ router.post("/create", jwtAuth, (req, res, next) => {
                     default: req.body.snippet.thumbnails
                   }
                  },
-                 videoId: this.id.videoId
+                id: { videoId: req.body.id.videoId}
             })
           .then(video => {
             

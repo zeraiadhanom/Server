@@ -8,10 +8,10 @@ mongoose.Promise = global.Promise;
 
 const videoSchema = mongoose.Schema({
   person : {type: mongoose.Schema.ObjectId, ref: 'User'}, 
-/*
+
   id: {
     videoId: String
-  }, */
+  }, 
   snippet: {
     publishedAt: Date,
     channelId: String,
