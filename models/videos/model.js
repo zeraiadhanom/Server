@@ -9,7 +9,7 @@ mongoose.Promise = global.Promise;
 const videoSchema = mongoose.Schema({
   person : {type: mongoose.Schema.ObjectId, ref: 'User'}, 
 
-  id: {
+  _id: {
     videoId: String
   }, 
   snippet: {
@@ -30,7 +30,7 @@ const videoSchema = mongoose.Schema({
 videoSchema.methods.serialize = function() {
   return {
     person: this.person,
-    id: {
+    _id: {
       videoId: this.id.videoId
     },
     snippet: {
